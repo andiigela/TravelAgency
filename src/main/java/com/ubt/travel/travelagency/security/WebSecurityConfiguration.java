@@ -21,15 +21,20 @@ public class WebSecurityConfiguration {
         this.userDetailsService=userDetailsService;
     }
     @Bean
-    private static PasswordEncoder passwordEncoder(){
-        return new BCryptPasswordEncoder();
+    protected static PasswordEncoder passwordEncoder(){
+        return NoOpPasswordEncoder.getInstance();
     }
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception{
         http.authorizeRequests()
                 .requestMatchers(new AntPathRequestMatcher("/register")).permitAll()
+                .requestMatchers(new AntPathRequestMatcher("/login")).permitAll()
+                .requestMatchers(new AntPathRequestMatcher("/dashboard")).hasRole("User")
                 .and()
-                .formLogin();
+                .formLogin().loginPage("/login").loginProcessingUrl("/login").defaultSuccessUrl("/dashboard")
+                .and()
+                .logout().logoutRequestMatcher(new AntPathRequestMatcher("/logout")).logoutSuccessUrl("/login?loggedout")
+                .invalidateHttpSession(true).deleteCookies("JSESSIONID");
         return http.build();
     }
     public void configureAuthenticationManager(AuthenticationManagerBuilder authenticationManagerBuilder) throws Exception{

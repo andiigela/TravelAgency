@@ -2,45 +2,39 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
-    <link th:replace="layout :: linkrel" />
+    <title>Edit Profile</title>
+    <link th:replace="layout :: linkrel"/>
 </head>
 <body>
-    <div th:replace="layout :: content">
-    </div>
+    <div th:replace="layout :: content"></div>
     <div class="container">
-        <h2 style="text-align: center">Register</h2>
-        <form method="post" th:action="@{/register}" th:object="${user}">
+        <h2 style="text-align: center">Edit Profile</h2>
+        <form method="post" th:action="@{/profile}" th:object="${editUser}">
+            <input th:field="*{id}" type="hidden" class="form-control" id="exampleInputId" placeholder="">
             <div class="form-group">
                 <label for="exampleInputFirstName">First Name</label>
                 <input th:field="*{firstName}" type="text" class="form-control" id="exampleInputFirstName" placeholder="Enter first name">
-                <p th:if="${#fields.hasErrors()}" th:errors="${user.firstName}" style="color: red"></p>
             </div>
             <div class="form-group">
                 <label for="exampleInputLastName">Last Name</label>
                 <input th:field="*{lastName}" type="text" class="form-control" id="exampleInputLastName" placeholder="Enter last name">
-                <p th:if="${#fields.hasErrors()}" th:errors="${user.lastName}" style="color: red"></p>
             </div>
             <div class="form-group">
                 <label for="exampleInputEmail">Email</label>
                 <input th:field="*{email}" type="email" class="form-control" id="exampleInputEmail" placeholder="Enter email">
-                <p th:if="${#fields.hasErrors()}" th:errors="${user.email}" style="color: red"></p>
             </div>
             <div class="form-group">
                 <label for="exampleInputUsername">Username</label>
                 <input th:field="*{username}" type="text" class="form-control" id="exampleInputUsername" placeholder="Enter username">
-                <p th:if="${#fields.hasErrors()}" th:errors="${user.username}" style="color: red"></p>
+                <p th:if="${#fields.hasErrors()}" th:errors="${user.username}"></p>
             </div>
             <div class="form-group">
                 <label for="exampleInputPassword">Password</label>
                 <input th:field="*{password}" type="password" class="form-control" id="exampleInputPassword" placeholder="Password">
-                <p th:if="${#fields.hasErrors()}" th:errors="${user.password}" style="color: red"></p>
             </div>
-            <button type="submit" class="btn btn-primary">Register</button>
+            <button type="submit" class="btn btn-primary">Submit</button>
         </form>
     </div>
-    <th:block th:replace="layout :: scripts">
-    </th:block>
-
+    <th:block th:replace="layout::scripts"></th:block>
 </body>
 </html>
