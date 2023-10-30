@@ -22,9 +22,11 @@
       <td th:text="${hotel.getHotel().name}"></td>
       <td th:text="${hotel.getHotel().numriDhomave}"></td>
       <td>
-          <form method="post" th:action="@{/hotelreservations/{hotelId}(hotelId=${hotel.id})}">
-              <button th:if="${hotel.isReserved()}" disabled type="submit" class="btn btn-danger">Reserved</button>
-              <button th:unless="${hotel.isReserved()}" type="submit" class="btn btn-danger">Reserve</button>
+          <form method="post" th:action="@{/hotelreservations/{hotelId}(hotelId=${hotel.hotel.id})}">
+
+              <input type="number" name="reservedNumber" />
+              <!--<button th:if="${hotel.isReserved()}" disabled type="submit" class="btn btn-danger">Reserved</button>-->
+              <button type="submit" class="btn btn-danger">Reserve</button>
           </form>
       </td>
     </tr>

@@ -42,6 +42,6 @@ public class HotelServiceImpl implements HotelService {
 
     @Override
     public List<Hotel> getHotelsByName(String name) {
-        return hotelRepository.searchByNameIgnoreCase(name);
+        return hotelRepository.searchByNameIgnoreCaseOrderById(name);
     }
 }

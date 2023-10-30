@@ -29,7 +29,6 @@ public class SearchController {
     public String getSearchValues(@RequestParam("name") String name, Model model){
         List<Hotel> hotels = hotelService.getHotelsByName(name);
         Authentication authUser = SecurityContextHolder.getContext().getAuthentication();
-        //model.addAttribute("hotels",hotels);
 
         List<HotelWithReservationStatus> hotelsWithStatus = new ArrayList<>();
 

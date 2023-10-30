@@ -15,6 +15,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.List;
 
@@ -30,7 +31,7 @@ public class HotelReservationsController {
         this.hotelService=hotelService;
     }
     @PostMapping("/hotelreservations/{hotelId}")
-    public String reserveHotel(@PathVariable("hotelId") Long hotelId){
+    public String reserveHotel(@PathVariable("hotelId") Long hotelId, @RequestParam("reservedNumber") String reservedNumber){
          Authentication authUser = SecurityContextHolder.getContext().getAuthentication();
          AppUser currentUser = appUserService.findUserByUsername(authUser.getName());
 
@@ -44,12 +45,19 @@ public class HotelReservationsController {
          hotelReservation.setId(hotelReservationPK);
          hotelReservation.setHotel(hotel);
          hotelReservation.setUser(currentUser);
-
          hotel.getHotelReservations().add(hotelReservation);
-         currentUser.getHotelReservations().add(hotelReservation);
+
+         if(reservedNumber.trim().equals("")){
+             return "redirect:/search?name=" + hotel.getName();
+         }
+         int myReservedNumber = Integer.parseInt(reservedNumber);
+         if(myReservedNumber > 0 && myReservedNumber <= hotel.getNumriDhomave()){
+             hotel.setNumriDhomave(hotel.getNumriDhomave()-myReservedNumber);
+         }
 
          hotelService.createHotel(hotel);
-         //appUserService.createUser(currentUser);
+
+
          hotelReservationService.createHotelReservation(hotelReservation);
          return "redirect:/search?name=" + hotel.getName();
     }
