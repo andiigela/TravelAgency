@@ -8,6 +8,7 @@ import com.ubt.travel.travelagency.models.HotelReservationPK;
 import com.ubt.travel.travelagency.services.AppUserService;
 import com.ubt.travel.travelagency.services.HotelReservationService;
 import com.ubt.travel.travelagency.services.HotelService;
+import org.springframework.security.authentication.AnonymousAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
@@ -33,8 +34,10 @@ public class HotelReservationsController {
     @PostMapping("/hotelreservations/{hotelId}")
     public String reserveHotel(@PathVariable("hotelId") Long hotelId, @RequestParam("reservedNumber") String reservedNumber){
          Authentication authUser = SecurityContextHolder.getContext().getAuthentication();
+         if(authUser instanceof AnonymousAuthenticationToken){
+             return "redirect:/login";
+         }
          AppUser currentUser = appUserService.findUserByUsername(authUser.getName());
-
          Hotel hotel = hotelService.getHotel(hotelId);
          HotelReservation hotelReservation = new HotelReservation();
 

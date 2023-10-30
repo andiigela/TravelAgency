@@ -30,6 +30,7 @@ public class WebSecurityConfiguration {
                 .requestMatchers(new AntPathRequestMatcher("/register")).permitAll()
                 .requestMatchers(new AntPathRequestMatcher("/login")).permitAll()
                 .requestMatchers(new AntPathRequestMatcher("/dashboard")).hasRole("User")
+                .requestMatchers(new AntPathRequestMatcher("/hotels")).hasRole("User")
                 .and()
                 .formLogin().loginPage("/login").loginProcessingUrl("/login").defaultSuccessUrl("/dashboard")
                 .and()

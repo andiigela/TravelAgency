@@ -36,6 +36,8 @@ public class AppUser {
     private List<Role> roles = new ArrayList<>();
     @OneToMany(mappedBy = "user")
     private List<HotelReservation> hotelReservations = new ArrayList<>();
+    @OneToMany(mappedBy = "user",cascade = CascadeType.ALL)
+    private List<Bookmark> bookmarks = new ArrayList<>();
 
 
 

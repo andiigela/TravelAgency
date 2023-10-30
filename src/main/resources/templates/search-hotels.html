@@ -15,6 +15,7 @@
       <th scope="col">Name</th>
       <th scope="col">Rooms</th>
       <th scope="col">Actions</th>
+      <th scope="col">Bookmarks</th>
     </tr>
     </thead>
     <tbody>
@@ -23,12 +24,12 @@
       <td th:text="${hotel.getHotel().numriDhomave}"></td>
       <td>
           <form method="post" th:action="@{/hotelreservations/{hotelId}(hotelId=${hotel.hotel.id})}">
-
               <input type="number" name="reservedNumber" />
               <!--<button th:if="${hotel.isReserved()}" disabled type="submit" class="btn btn-danger">Reserved</button>-->
               <button type="submit" class="btn btn-danger">Reserve</button>
           </form>
       </td>
+      <td><p style="text-align: left">B</p></td>
     </tr>
     </tbody>
   </table>

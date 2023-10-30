@@ -6,6 +6,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.awt.print.Book;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -22,6 +23,8 @@ public class Hotel {
     private int numriDhomave;
     @OneToMany(mappedBy = "hotel",cascade = CascadeType.ALL)
     private List<HotelReservation> hotelReservations = new ArrayList<>();
+    @OneToMany(mappedBy = "hotel",cascade = CascadeType.ALL)
+    private List<Bookmark> bookmarks = new ArrayList<>();
 
 
 
