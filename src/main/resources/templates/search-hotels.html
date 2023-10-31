@@ -29,7 +29,12 @@
               <button type="submit" class="btn btn-danger">Reserve</button>
           </form>
       </td>
-      <td><p style="text-align: left">B</p></td>
+      <td>
+          <form method="post" th:action="@{/bookmark/hotel/{id}(id=${hotel.hotel.id})}">
+              <button th:if="${hotel.isBookmarked()}" disabled type="submit" class="btn btn-danger">B</button>
+              <button th:unless="${hotel.isBookmarked()}" type="submit" class="btn btn-danger">B</button>
+          </form>
+      </td>
     </tr>
     </tbody>
   </table>

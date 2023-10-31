@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Hotels</title>
+  <link th:replace="layout::linkrel" />
+</head>
+<body>
+<div th:replace="layout::content"></div>
+<div class="container">
+  <h2 style="text-align: center">Bookmarked</h2>
+  <table class="table">
+    <thead>
+    <tr>
+      <th scope="col">Name</th>
+      <th scope="col">Rooms</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="bookmark: ${bookmarks}">
+      <td th:text="${bookmark.hotel.name}"></td>
+      <td th:text="${bookmark.hotel.numriDhomave}"></td>
+    </tr>
+    </tbody>
+  </table>
+</div>
+<th:block th:replace="layout::scripts"></th:block>
+</body>
+</html>

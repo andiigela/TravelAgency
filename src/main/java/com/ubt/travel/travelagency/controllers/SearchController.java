@@ -1,4 +1,5 @@
 package com.ubt.travel.travelagency.controllers;
+import com.ubt.travel.travelagency.dto.HotelWithBookmarkStatus;
 import com.ubt.travel.travelagency.dto.HotelWithReservationStatus;
 import com.ubt.travel.travelagency.models.AppUser;
 import com.ubt.travel.travelagency.models.Hotel;
@@ -30,15 +31,13 @@ public class SearchController {
         List<Hotel> hotels = hotelService.getHotelsByName(name);
         Authentication authUser = SecurityContextHolder.getContext().getAuthentication();
 
-        List<HotelWithReservationStatus> hotelsWithStatus = new ArrayList<>();
-
-        for (Hotel hotel : hotels) {
-            boolean isReservedByCurrentUser = hotel.getHotelReservations().stream()
-                    .anyMatch(reservation -> reservation.getUser().getUsername().equals(authUser.getName()));
-
-            hotelsWithStatus.add(new HotelWithReservationStatus(hotel, isReservedByCurrentUser));
+        List<HotelWithBookmarkStatus> bookmarkStatusList = new ArrayList<>();
+        for(Hotel hotel : hotelService.getHotels()){
+            boolean isBookmarkedByCurrentUser = hotel.getBookmarks().stream()
+                    .anyMatch(bookmark -> bookmark.getUser().getUsername().equals(authUser.getName()));
+            bookmarkStatusList.add(new HotelWithBookmarkStatus(hotel,isBookmarkedByCurrentUser));
         }
-        model.addAttribute("hotelsWithStatus",hotelsWithStatus);
+        model.addAttribute("hotelsWithStatus",bookmarkStatusList);
         return "search-hotels";
     }
 }

@@ -1,5 +1,6 @@
 package com.ubt.travel.travelagency.controllers;
 
+import com.ubt.travel.travelagency.dto.HotelWithBookmarkStatus;
 import com.ubt.travel.travelagency.models.AppUser;
 import com.ubt.travel.travelagency.models.Bookmark;
 import com.ubt.travel.travelagency.models.BookmarkPK;
@@ -11,9 +12,13 @@ import org.springframework.security.authentication.AnonymousAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @Controller
 public class BookmarksController {
@@ -27,7 +32,7 @@ public class BookmarksController {
     }
     @PostMapping("/bookmark/hotel/{id}")
     public String bookmarkHotel(@PathVariable("id") Long id){
-        Hotel hotel = hotelService.getHotel(id);
+        Hotel hoteldb = hotelService.getHotel(id);
         Authentication authUser = SecurityContextHolder.getContext().getAuthentication();
         if(authUser instanceof AnonymousAuthenticationToken) return "redirect:/login";
         AppUser appUser = appUserService.findUserByUsername(authUser.getName());
@@ -35,19 +40,28 @@ public class BookmarksController {
         Bookmark bookmark = new Bookmark();
 
         BookmarkPK bookmarkPK = new BookmarkPK();
-        bookmarkPK.setHotelId(hotel.getId());
+        bookmarkPK.setHotelId(hoteldb.getId());
         bookmarkPK.setUserId(appUser.getId());
 
         bookmark.setId(bookmarkPK);
         bookmark.setUser(appUser);
-        bookmark.setHotel(hotel);
+        bookmark.setHotel(hoteldb);
+
+        //hoteldb.getBookmarks().add(bookmark);
+        //hotelService.createHotel(hoteldb);
 
         bookmarkService.createBookmark(bookmark);
-        return "redirect:/bookmarks";
+        return "redirect:/search?name=" + hoteldb.getName();
     }
     @GetMapping("/bookmarks")
-    public String getBookmarksView(){
-        return "";
+    public String getBookmarksView(Model model){
+        Authentication authUser = SecurityContextHolder.getContext().getAuthentication();
+        if(authUser instanceof AnonymousAuthenticationToken) return "redirect:/login";
+        AppUser appUser = appUserService.findUserByUsername(authUser.getName());
+        List<Bookmark> bookmarksByUser = bookmarkService.getBookmarksByUser(appUser);
+        model.addAttribute("bookmarks",bookmarksByUser);
+
+        return "bookmarks";
     }
 
 
