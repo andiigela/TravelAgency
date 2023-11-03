@@ -14,12 +14,18 @@
     <tr>
       <th scope="col">Name</th>
       <th scope="col">Rooms</th>
+      <th scope="col">Actions</th>
     </tr>
     </thead>
     <tbody>
     <tr th:each="bookmark: ${bookmarks}">
       <td th:text="${bookmark.hotel.name}"></td>
       <td th:text="${bookmark.hotel.numriDhomave}"></td>
+      <td>
+        <form method="post" th:action="@{/bookmarks/delete/{hotelid}(hotelid=${bookmark.hotel.id})}">
+          <button type="submit" class="btn btn-danger">Remove</button>
+        </form>
+      </td>
     </tr>
     </tbody>
   </table>

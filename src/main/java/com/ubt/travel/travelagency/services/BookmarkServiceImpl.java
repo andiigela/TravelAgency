@@ -1,6 +1,7 @@
 package com.ubt.travel.travelagency.services;
 import com.ubt.travel.travelagency.models.AppUser;
 import com.ubt.travel.travelagency.models.Bookmark;
+import com.ubt.travel.travelagency.models.BookmarkPK;
 import com.ubt.travel.travelagency.repositories.BookmarkRepository;
 import org.springframework.stereotype.Service;
 
@@ -23,5 +24,11 @@ public class BookmarkServiceImpl implements BookmarkService {
     public List<Bookmark> getBookmarksByUser(AppUser user) {
         if(user == null) return null;
         return bookmarkRepository.getBookmarksByUser(user);
+    }
+
+    @Override
+    public void deleteBookmark(BookmarkPK id) {
+        if(id == null) return;
+        bookmarkRepository.deleteById(id);
     }
 }

@@ -63,6 +63,16 @@ public class BookmarksController {
 
         return "bookmarks";
     }
+    @PostMapping("/bookmarks/delete/{hotelid}")
+    public String deleteBookmark(@PathVariable("hotelid") Long hotelId){
+        Authentication authUser = SecurityContextHolder.getContext().getAuthentication();
+        AppUser appUser = appUserService.findUserByUsername(authUser.getName());
+        BookmarkPK bookmarkPK = new BookmarkPK();
+        bookmarkPK.setHotelId(hotelId);
+        bookmarkPK.setUserId(appUser.getId());
+        bookmarkService.deleteBookmark(bookmarkPK);
+        return "redirect:/bookmarks";
+    }
 
 
 

@@ -32,7 +32,7 @@ public class SearchController {
         Authentication authUser = SecurityContextHolder.getContext().getAuthentication();
 
         List<HotelWithBookmarkStatus> bookmarkStatusList = new ArrayList<>();
-        for(Hotel hotel : hotelService.getHotels()){
+        for(Hotel hotel : hotelService.getHotelsByName(name)){
             boolean isBookmarkedByCurrentUser = hotel.getBookmarks().stream()
                     .anyMatch(bookmark -> bookmark.getUser().getUsername().equals(authUser.getName()));
             bookmarkStatusList.add(new HotelWithBookmarkStatus(hotel,isBookmarkedByCurrentUser));
