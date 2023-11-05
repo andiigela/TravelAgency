@@ -25,6 +25,7 @@
                 <ul class="navbar-nav ml-auto mr-2">
                     <li th:if="${#authorization.expression('isAnonymous()')}" style="margin-right: 10px"><a th:href="@{/register}"><span class="glyphicon glyphicon-user"></span> Sign Up</a></li>
                     <li th:if="${#authorization.expression('isAnonymous()')}" style="margin-right: 10px"><a th:href="@{/login}"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
+                    <li th:unless="${#authorization.expression('isAnonymous()')}" style="margin-right: 10px"><a th:href="@{/orders}">Orders</a></li>
                     <li th:unless="${#authorization.expression('isAnonymous()')}" style="margin-right: 10px"><a th:href="@{/bookmarks}">Bookmarks</a></li>
                     <li th:unless="${#authorization.expression('isAnonymous()')}" style="margin-right: 10px"><a th:href="@{/profile/{id}(id=${#authentication.name})}">My Profile</a></li>
                     <li th:unless="${#authorization.expression('isAnonymous()')}" style="margin-right: 10px" ><a th:href="@{/logout}"><span class="glyphicon glyphicon-log-in"></span> Logout</a></li>

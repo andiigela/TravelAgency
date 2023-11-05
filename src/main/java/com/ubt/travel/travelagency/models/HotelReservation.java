@@ -6,6 +6,9 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @Entity
 @Getter
 @Setter
@@ -20,4 +23,6 @@ public class HotelReservation {
     @ManyToOne
     @MapsId("userId")
     private AppUser user;
+    @OneToMany(mappedBy = "hotelReservation")
+    private List<Order> orders = new ArrayList<>();
 }
