@@ -21,5 +21,6 @@ public class Order {
     private Long id;
     private LocalDate date;
     @ManyToOne
+    @JoinColumn(nullable = true)
     private HotelReservation hotelReservation;
 }

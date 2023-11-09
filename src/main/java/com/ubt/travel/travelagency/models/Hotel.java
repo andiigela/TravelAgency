@@ -21,13 +21,8 @@ public class Hotel {
     private Long id;
     private String name;
     private int numriDhomave;
-    @OneToMany(mappedBy = "hotel",cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "hotel",cascade = CascadeType.REMOVE)
     private List<HotelReservation> hotelReservations = new ArrayList<>();
     @OneToMany(mappedBy = "hotel",cascade = CascadeType.ALL)
     private List<Bookmark> bookmarks = new ArrayList<>();
-
-
-
-
-
 }

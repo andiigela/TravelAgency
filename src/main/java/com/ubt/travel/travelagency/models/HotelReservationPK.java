@@ -1,4 +1,4 @@
-package com.ubt.travel.travelagency.models;
+/*package com.ubt.travel.travelagency.models;
 
 import jakarta.persistence.Embeddable;
 import lombok.Data;
@@ -11,3 +11,4 @@ public class HotelReservationPK implements Serializable {
     private Long hotelId;
     private Long userId;
 }
+*/

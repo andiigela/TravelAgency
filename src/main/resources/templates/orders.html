@@ -20,8 +20,8 @@
     <tbody>
     <tr th:each="order: ${orders}">
       <td th:text="${order.id}"></td>
-      <td th:text="${order.hotelReservation.hotel.name}"></td>
-      <td th:text="${order.hotelReservation.hotel.numriDhomave}"></td>
+      <td th:if="${order.hotelReservation.hotel != null}" th:text="${order.hotelReservation.hotel.name}"></td>
+      <td th:if="${order.hotelReservation.hotel != null}" th:text="${order.hotelReservation.hotel.numriDhomave}"></td>
     </tr>
     </tbody>
   </table>

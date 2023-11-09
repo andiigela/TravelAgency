@@ -42,14 +42,15 @@ public class HotelReservationsController {
         Hotel hotel = hotelService.getHotel(hotelId);
         HotelReservation hotelReservation = new HotelReservation();
 
-        HotelReservationPK hotelReservationPK = new HotelReservationPK();
-        hotelReservationPK.setHotelId(hotel.getId());
-        hotelReservationPK.setUserId(currentUser.getId());
+        //HotelReservationPK hotelReservationPK = new HotelReservationPK(); +
+        //hotelReservationPK.setHotelId(hotel.getId()); +
+        //hotelReservationPK.setUserId(currentUser.getId()); +
 
-        hotelReservation.setId(hotelReservationPK);
+        //hotelReservation.setId(hotelReservationPK); +
         hotelReservation.setHotel(hotel);
         hotelReservation.setUser(currentUser);
         hotel.getHotelReservations().add(hotelReservation);
+        hotelReservationService.createHotelReservation(hotelReservation);
 
         if(reservedNumber.trim().equals("")){
             return "redirect:/search?name=" + hotel.getName();
@@ -61,9 +62,7 @@ public class HotelReservationsController {
 
         LocalDate currentDate = LocalDate.now();
 
-
         hotelService.createHotel(hotel);
-        hotelReservationService.createHotelReservation(hotelReservation);
 
         Order order = new Order();
         order.setDate(currentDate);

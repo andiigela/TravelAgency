@@ -1,7 +1,11 @@
 package com.ubt.travel.travelagency.services;
 
 import com.ubt.travel.travelagency.models.Hotel;
+import com.ubt.travel.travelagency.models.HotelReservation;
+import com.ubt.travel.travelagency.models.Order;
 import com.ubt.travel.travelagency.repositories.HotelRepository;
+import com.ubt.travel.travelagency.repositories.HotelReservationRepository;
+import org.aspectj.weaver.ast.Or;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -9,8 +13,10 @@ import java.util.List;
 @Service
 public class HotelServiceImpl implements HotelService {
     private final HotelRepository hotelRepository;
-    public HotelServiceImpl(HotelRepository hotelRepository){
+    private final HotelReservationRepository hotelReservationRepository;
+    public HotelServiceImpl(HotelRepository hotelRepository,HotelReservationRepository hotelReservationRepository){
         this.hotelRepository=hotelRepository;
+        this.hotelReservationRepository=hotelReservationRepository;
     }
     @Override
     public List<Hotel> getHotels() {
@@ -32,6 +38,15 @@ public class HotelServiceImpl implements HotelService {
     @Override
     public void deleteHotel(Long id) {
         if( id == 0 || id == null) return;
+        Hotel hotel = hotelRepository.findById(id).get();
+        if(hotel != null){
+            for(HotelReservation reservation : hotel.getHotelReservations()){
+                reservation.setHotel(null);
+                hotelReservationRepository.save(reservation);
+            }
+            hotel.getHotelReservations().clear();
+            hotelRepository.save(hotel);
+        }
         hotelRepository.deleteById(id);
     }
     @Override

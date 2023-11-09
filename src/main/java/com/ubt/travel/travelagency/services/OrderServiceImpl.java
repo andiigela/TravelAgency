@@ -30,4 +30,10 @@ public class OrderServiceImpl implements OrderService{
         if(user == null) return null;
         return orderRepository.getOrdersByHotelReservationUser(user);
     }
+
+    @Override
+    public void deleteOrderById(Long id) {
+        if(id == 0 || id == null) return;
+        orderRepository.deleteById(id);
+    }
 }
