@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Hotels</title>
+    <link th:replace="layout::linkrel" />
+</head>
+<body>
+    <div th:replace="layout::content"></div>
+    <div class="container">
+        <h2 style="text-align: center">Hotels</h2>
+        <a th:href="@{/hotels/create}"><button class="btn btn-primary">Create Hotel</button></a>
+        <table class="table">
+            <thead>
+            <tr>
+                <th scope="col">Name</th>
+                <th scope="col">Rooms Available</th>
+                <th scope="col">Room Price</th>
+                <th scope="col">Actions</th>
+            </tr>
+            </thead>
+            <tbody>
+                <tr th:each="hotel: ${hotels}">
+                    <td th:text="${hotel.name}"></td>
+                    <td th:text="${hotel.numriDhomave}"></td>
+                    <td th:text="${hotel.roomPrice}"></td>
+                    <td>
+                        <a th:href="@{/hotels/edit/{id}(id=${hotel.id})}"><button class="btn btn-primary">Edit</button></a>
+                    </td>
+                    <td>
+                        <form method="post" th:action="@{/hotels/delete/{id}(id=${hotel.id})}">
+                            <button class="btn btn-danger">Delete</button>
+                        </form>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <th:block th:replace="layout::scripts"></th:block>
+</body>
+</html>

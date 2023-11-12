@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Hotels</title>
+  <link th:replace="layout::linkrel" />
+</head>
+<body>
+<div th:replace="layout::content"></div>
+<div class="container">
+  <h2 style="text-align: center">Hotels</h2>
+  <table class="table">
+    <thead>
+    <tr>
+      <th scope="col">Name</th>
+      <th scope="col">Rooms Available</th>
+      <th scope="col">Room Price</th>
+      <th scope="col">Actions</th>
+      <th scope="col">Bookmarks</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="hotel: ${hotelsWithStatus}">
+      <td th:text="${hotel.getHotel().name}"></td>
+      <td th:text="${hotel.getHotel().numriDhomave}"></td>
+      <td th:text="${hotel.getHotel().roomPrice + '€'}"></td>
+      <td>
+          <form method="post" th:action="@{/hotelreservations/{hotelId}(hotelId=${hotel.hotel.id})}">
+              <input type="number" name="reservedNumber" />
+              <button th:if="${hotel.hotel.getNumriDhomave() == 0}" disabled type="submit" class="btn btn-danger">No Ticket</button>
+              <button th:if="${hotel.hotel.getNumriDhomave() > 0}" type="submit" class="btn btn-danger">Reserve</button>
+          </form>
+      </td>
+      <td>
+          <form method="post" th:action="@{/bookmark/hotel/{id}(id=${hotel.hotel.id})}">
+              <button th:if="${hotel.isBookmarked()}" disabled type="submit" class="btn btn-danger">B</button>
+              <button th:unless="${hotel.isBookmarked()}" type="submit" class="btn btn-danger">B</button>
+          </form>
+      </td>
+    </tr>
+    </tbody>
+  </table>
+</div>
+<th:block th:replace="layout::scripts"></th:block>
+</body>
+</html>

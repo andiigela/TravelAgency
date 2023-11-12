@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Hotels</title>
+  <link th:replace="layout::linkrel" />
+</head>
+<body>
+<div th:replace="layout::content"></div>
+<div class="container">
+  <h2 style="text-align: center">Ordered</h2>
+  <table class="table">
+    <thead>
+    <tr>
+      <th scope="col">Order Id</th>
+      <th scope="col">Item Paid</th>
+      <th scope="col">Rooms Paid</th>
+      <th scope="col">Price for Room</th>
+      <th scope="col">Total Price</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="order: ${orders}">
+      <td th:text="${order.id}"></td>
+      <td th:text="${order.itemPaid}"></td>
+      <td th:text="${order.quantity}"></td>
+      <td th:text="${order.price/order.quantity + '€'}"></td>
+      <td th:text="${order.price} + '€'"></td>
+    </tr>
+    </tbody>
+  </table>
+</div>
+<th:block th:replace="layout::scripts"></th:block>
+</body>
+</html>
