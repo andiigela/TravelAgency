@@ -13,7 +13,8 @@
     <thead>
     <tr>
       <th scope="col">Name</th>
-      <th scope="col">Rooms</th>
+      <th scope="col">Rooms Available</th>
+      <th scope="col">Room Price</th>
       <th scope="col">Actions</th>
       <th scope="col">Bookmarks</th>
     </tr>
@@ -22,6 +23,7 @@
     <tr th:each="hotel: ${hotelsWithStatus}">
       <td th:text="${hotel.getHotel().name}"></td>
       <td th:text="${hotel.getHotel().numriDhomave}"></td>
+      <td th:text="${hotel.getHotel().roomPrice + '€'}"></td>
       <td>
           <form method="post" th:action="@{/hotelreservations/{hotelId}(hotelId=${hotel.hotel.id})}">
               <input type="number" name="reservedNumber" />

@@ -25,4 +25,5 @@ public class Hotel {
     private List<HotelReservation> hotelReservations = new ArrayList<>();
     @OneToMany(mappedBy = "hotel",cascade = CascadeType.ALL)
     private List<Bookmark> bookmarks = new ArrayList<>();
+    private Integer roomPrice;
 }

@@ -13,15 +13,19 @@
     <thead>
     <tr>
       <th scope="col">Order Id</th>
-      <th scope="col">Name</th>
-      <th scope="col">Rooms</th>
+      <th scope="col">Item Paid</th>
+      <th scope="col">Rooms Paid</th>
+      <th scope="col">Price for Room</th>
+      <th scope="col">Total Price</th>
     </tr>
     </thead>
     <tbody>
     <tr th:each="order: ${orders}">
       <td th:text="${order.id}"></td>
-      <td th:if="${order.hotelReservation.hotel != null}" th:text="${order.hotelReservation.hotel.name}"></td>
-      <td th:if="${order.hotelReservation.hotel != null}" th:text="${order.hotelReservation.hotel.numriDhomave}"></td>
+      <td th:text="${order.itemPaid}"></td>
+      <td th:text="${order.quantity}"></td>
+      <td th:text="${order.price/order.quantity + '€'}"></td>
+      <td th:text="${order.price} + '€'"></td>
     </tr>
     </tbody>
   </table>

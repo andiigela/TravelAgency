@@ -14,7 +14,8 @@
             <thead>
             <tr>
                 <th scope="col">Name</th>
-                <th scope="col">Rooms</th>
+                <th scope="col">Rooms Available</th>
+                <th scope="col">Room Price</th>
                 <th scope="col">Actions</th>
             </tr>
             </thead>
@@ -22,6 +23,7 @@
                 <tr th:each="hotel: ${hotels}">
                     <td th:text="${hotel.name}"></td>
                     <td th:text="${hotel.numriDhomave}"></td>
+                    <td th:text="${hotel.roomPrice}"></td>
                     <td>
                         <a th:href="@{/hotels/edit/{id}(id=${hotel.id})}"><button class="btn btn-primary">Edit</button></a>
                     </td>

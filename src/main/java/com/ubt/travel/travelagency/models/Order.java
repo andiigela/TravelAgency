@@ -23,4 +23,7 @@ public class Order {
     @ManyToOne
     @JoinColumn(nullable = true)
     private HotelReservation hotelReservation;
+    private Integer price;
+    private Integer quantity;
+    private String itemPaid;
 }

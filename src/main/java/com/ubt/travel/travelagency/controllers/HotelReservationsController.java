@@ -42,22 +42,23 @@ public class HotelReservationsController {
         Hotel hotel = hotelService.getHotel(hotelId);
         HotelReservation hotelReservation = new HotelReservation();
 
-        //HotelReservationPK hotelReservationPK = new HotelReservationPK(); +
-        //hotelReservationPK.setHotelId(hotel.getId()); +
-        //hotelReservationPK.setUserId(currentUser.getId()); +
-
-        //hotelReservation.setId(hotelReservationPK); +
         hotelReservation.setHotel(hotel);
         hotelReservation.setUser(currentUser);
         hotel.getHotelReservations().add(hotelReservation);
         hotelReservationService.createHotelReservation(hotelReservation);
 
+        int myReservedNumber=0;
+        if(!reservedNumber.trim().equals("")){
+            myReservedNumber = Integer.parseInt(reservedNumber);
+
+        }
         if(reservedNumber.trim().equals("")){
             return "redirect:/search?name=" + hotel.getName();
         }
-        int myReservedNumber = Integer.parseInt(reservedNumber);
         if(myReservedNumber > 0 && myReservedNumber <= hotel.getNumriDhomave()){
             hotel.setNumriDhomave(hotel.getNumriDhomave()-myReservedNumber);
+        } else {
+            return "redirect:/search?name=" + hotel.getName();
         }
 
         LocalDate currentDate = LocalDate.now();
@@ -67,12 +68,12 @@ public class HotelReservationsController {
         Order order = new Order();
         order.setDate(currentDate);
         order.setHotelReservation(hotelReservation);
-        //hotelReservation.getOrders().add(order);
+        order.setPrice(myReservedNumber*hotel.getRoomPrice());
+        order.setQuantity(myReservedNumber);
+        order.setItemPaid("Hotel " + hotel.getName() + " Room");
+
         orderService.createOrder(order);
 
-        //return "redirect:/search?name=" + hotel.getName();
-
-        //model.addAttribute("order",order);
         return "redirect:/order/" +order.getId();
     }
 }
